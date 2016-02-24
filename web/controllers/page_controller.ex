@@ -8,6 +8,7 @@ defmodule Herpderp.PageController do
       "http://10.21.21.131.xip.io:4000/oauth/youtube"
     )
     |> YoutubeEx.Client.add_param(:scope, "https://www.googleapis.com/auth/youtube.readonly")
+    |> YoutubeEx.Client.add_param(:prompt, "consent")
   end
 
   def index(conn, _params) do
