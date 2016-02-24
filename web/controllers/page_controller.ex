@@ -1,17 +1,13 @@
 defmodule Herpderp.PageController do
   use Herpderp.Web, :controller
-  use OAuth2.Strategy
-  
+
   def client do
-    OAuth2.Client.new([
-      strategy: OAuth2.Strategy.AuthCode,
-      client_id: "IpGJueWjnMbGPfy9tW89vwVHzHSRV65Rj6L96RcV",
-      client_secret: "3ab85aCXI155XeLC5JeIviDHc6QjQ8hQGG3roDKk",
-      site: "https://www.twitchalerts.com",
-      authorize_url: "https://twitchalerts.com/api/v1.0/authorize",
-      token_url: "https://www.twitchalerts.com/api/v1.0/token",
-      redirect_uri: "http://localhost:4000/oauth/twitchalerts",
-    ]) |> put_param(:scope, "donations.read")
+    YoutubeEx.Client.new(
+      "500038538717-935n048q9brv58ji9qmktii28bhbgt9t.apps.googleusercontent.com",
+      "e52KKHV3-i6snGTz0gpN-LqG",
+      "http://10.21.21.131.xip.io:4000/oauth/youtube"
+    )
+    |> YoutubeEx.Client.add_param(:scope, "https://www.googleapis.com/auth/youtube.readonly")
   end
 
   def index(conn, _params) do
@@ -24,7 +20,7 @@ defmodule Herpderp.PageController do
   end
 
   def oauth_twitchalerts(conn, params) do
-    token = OAuth2.Client.get_token!(client, code: params["code"])
+    token = YoutubeEx.Client.get_token!(client, params["code"])
 
     conn = Plug.Conn.put_session(conn, :twitchalerts_token, token) 
     redirect conn, to: "/"

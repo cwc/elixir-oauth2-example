@@ -16,7 +16,12 @@
       <div class="header">
         <ul class="nav nav-pills pull-right">
           <li><a href="http://www.phoenixframework.org/docs">Get Started</a></li>
+
+          <%= if is_authenticated(@conn) do %>
+          <li><a href="/logout">Logout</a></li>
+          <% else %>
           <li><a href="<%= get_login_url %>">Login</a></li>
+          <% end %>
         </ul>
         <span class="logo"></span>
       </div>

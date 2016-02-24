@@ -19,6 +19,7 @@ defmodule Herpderp.Router do
     get "/", PageController, :index
     get "/logout", PageController, :logout
     get "/oauth/twitchalerts", PageController, :oauth_twitchalerts
+    get "/oauth/youtube", PageController, :oauth_twitchalerts
   end
 
   # Other scopes may use custom stacks.

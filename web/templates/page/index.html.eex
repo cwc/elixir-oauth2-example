@@ -3,10 +3,8 @@
   <p class="lead">A productive web framework that<br />does not compromise speed and maintainability.</p>
 </div>
 
-<%= if Plug.Conn.get_session(@conn, :twitchalerts_token) do %>
-  <pre>
-    <%= get_donations Plug.Conn.get_session(@conn, :twitchalerts_token) %>
-  </pre>
+<%= if is_authenticated(@conn) do %>
+  <pre style="width: 75%; overflow: scroll; white-space: pre-wrap"><%= get_donations @conn %></pre>
 <% end %>
 
 <div class="row marketing">
