@@ -12,6 +12,14 @@ defmodule Herpderp.PageController do
   end
 
   def index(conn, _params) do
+    token = Plug.Conn.get_session(conn, :twitchalerts_token)
+
+    if token != nil && YoutubeEx.Client.expired? token do
+      # Refresh the token
+      token = YoutubeEx.Client.refresh_token!(token)
+      conn = Plug.Conn.put_session(conn, :twitchalerts_token, token)
+    end
+
     render conn, "index.html"
   end
 
@@ -24,6 +32,14 @@ defmodule Herpderp.PageController do
     token = YoutubeEx.Client.get_token!(client, params["code"])
 
     conn = Plug.Conn.put_session(conn, :twitchalerts_token, token) 
+    redirect conn, to: "/"
+  end
+
+  def refresh(conn, _params) do
+    token = Plug.Conn.get_session(conn, :twitchalerts_token)
+    token = YoutubeEx.Client.refresh_token!(token)
+    conn = Plug.Conn.put_session(conn, :twitchalerts_token, token)
+
     redirect conn, to: "/"
   end
 end

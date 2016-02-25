@@ -19,7 +19,7 @@ defmodule Herpderp.Mixfile do
   def application do
     [mod: {Herpderp, []},
      applications: [:phoenix, :phoenix_html, :cowboy, :logger,
-                    :phoenix_ecto, :postgrex, :youtube_ex]]
+                    :phoenix_ecto, :postgrex, :youtube_ex, :tzdata]]
   end
 
   # Specifies which paths to compile per environment.
@@ -36,6 +36,7 @@ defmodule Herpderp.Mixfile do
      {:phoenix_html, "~> 2.1"},
      {:phoenix_live_reload, "~> 1.0", only: :dev},
      {:cowboy, "~> 1.0"},
+     {:timex, "~> 1.0.1"},
      {:youtube_ex, git: "https://bitbucket.org/muxy/youtube_ex.git"},
      {:oauth2, "~> 0.5"}]
   end
